@@ -1,0 +1,23 @@
+Index: src/main/java/com/example/techzone/configuration/CloudinaryConfig.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.techzone.configuration;\r\n\r\nimport com.cloudinary.Cloudinary;\r\nimport com.cloudinary.utils.ObjectUtils;\r\nimport org.springframework.context.annotation.Bean;\r\nimport org.springframework.context.annotation.Configuration;\r\n\r\n@Configuration\r\npublic class CloudinaryConfig{\r\n        @Bean\r\n        public Cloudinary cloudinary() {\r\n            return new Cloudinary(ObjectUtils.asMap(\r\n                    \"cloud_name\", \"dbwplsb0f\",\r\n                    \"api_key\", \"436166771293576\",\r\n                    \"api_secret\", \"kmRr0xA8wlUrDcUiN4xLQUx2fv0\",\r\n                    \"secure\", true\r\n            ));\r\n        }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/techzone/configuration/CloudinaryConfig.java b/src/main/java/com/example/techzone/configuration/CloudinaryConfig.java
+--- a/src/main/java/com/example/techzone/configuration/CloudinaryConfig.java	(revision 120572e66a077990a0381ada9827c20398d2097e)
++++ b/src/main/java/com/example/techzone/configuration/CloudinaryConfig.java	(date 1762153694833)
+@@ -10,9 +10,9 @@
+         @Bean
+         public Cloudinary cloudinary() {
+             return new Cloudinary(ObjectUtils.asMap(
+-                    "cloud_name", "dbwplsb0f",
+-                    "api_key", "436166771293576",
+-                    "api_secret", "kmRr0xA8wlUrDcUiN4xLQUx2fv0",
++                    "cloud_name", "YOUR_CLOUD_NAME",
++                    "api_key", "YOUR_API_KEY",
++                    "api_secret", "YOUR_API_SECRET",
+                     "secure", true
+             ));
+         }

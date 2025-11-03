@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Account</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/account.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="/image/logo.svg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <ul class="navbar-nav top-menu mb-2 mb-lg-0 gap-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/search#categories">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/home#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/home#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+            <form class="d-flex" role="search" th:action="@{/product/search}" method="get">
+                <input class="form-control form-control-sm me-2"
+                       type="search" name="query"
+                       placeholder="Search"
+                       aria-label="Search">
+                <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
+            </form>
+
+            <a href="/cart">
+                <img src="/image/cart.svg" alt="Cart" width="24" height="24">
+            </a>
+            <a href="/auth/account">
+                <img src="/image/user.svg" alt="User" width="24" height="24">
+            </a>
+
+        </div>
+    </div>
+</nav>
+
+<main class="flex-grow-1 py-5 account-wrapper container">
+
+    <p class="text-end fw-semibold mb-4">
+        Welcome! <span th:text="${user.firstName} + ' ' + ${user.lastName}"></span>
+    </p>
+
+    <div class="row g-5">
+
+        <aside class="col-lg-3">
+            <h6 class="mb-3 fw-bold small text-uppercase">Manage My Account</h6>
+            <ul class="nav flex-column account-menu">
+                <li class="nav-item"><a class="nav-link active" href="#">My Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Address Book</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">My Payment Options</a></li>
+            </ul>
+
+            <h6 class="mt-4 mb-3 fw-bold small text-uppercase">My Orders</h6>
+            <ul class="nav flex-column account-menu">
+                <li class="nav-item"><a class="nav-link" href="#">My active order</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Order pending</a></li>
+            </ul>
+        </aside>
+
+        <section class="col-lg-9">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+
+                    <h5 class="fw-semibold mb-4 text-success">Edit Your Profile</h5>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label small text-muted">First Name</label>
+                            <p class="mb-0" th:text="${user.firstName}"></p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small text-muted">Second Name</label>
+                            <p class="mb-0" th:text="${user.lastName}"></p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small text-muted">Email</label>
+                            <p class="mb-0" th:text="${user.email}">kirill30082005@gmail.com</p>
+                        </div>
+
+                    </div>
+
+                    <h6 class="mt-5 mb-3 fw-semibold">Password Changes</h6>
+                    <button class="btn btn-outline-success" type="button">
+                        Change password
+                    </button>
+
+
+                    <div class="d-flex justify-content-end mt-4">
+                        <button class="btn btn-danger px-4"
+                                data-bs-toggle="modal"
+                                data-bs-target="#logoutModal">
+                            Logout
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Confirm logout</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">Are you sure you want to logout?</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form th:action="@{/logout}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <button class="btn btn-danger">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+
+
+<footer class="bg-dark text-white pt-5 pb-4 mt-auto">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 col-md-6 col-lg-3 mb-4">
+                <h5 class="fw-bold mb-3">Exclusive</h5>
+                <p class="mb-1">Subscribe</p>
+                <p class="small">Get 10% off your first order</p>
+
+                <form class="d-flex" action="#" method="post">
+                    <input
+                            class="form-control form-control-sm me-2"
+                            type="email"
+                            placeholder="Enter your email"
+                            aria-label="Email"
+                            required
+                    >
+                    <button class="btn btn-sm btn-primary" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M15.864.043A.5.5 0 0 1 16 .5v15a.5.5 0 0 1-.65.48l-15-5.5a.5.5 0 0 1 0-.94l15-5.5a.5.5 0 0 1 .514.003z"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-2 mb-4" id="contact">
+                <h5 class="fw-bold mb-3">Support</h5>
+                <address class="small mb-2">
+                    Beresteysky Avenue, 32, <br>
+                    Kiev, Ukraine, 04116
+                </address>
+                <p class="small mb-1">personal@gmail.com</p>
+                <p class="small mb-0">+380-50555-5555</p>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-2 mb-4">
+                <h5 class="fw-bold mb-3">Account</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">My Account</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Login / Register</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Cart</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Wishlist</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Shop</a></li>
+                </ul>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-2 mb-4">
+                <h5 class="fw-bold mb-3">Quick Link</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Terms Of Use</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="col-12 col-lg-3 mb-4">
+                <h5 class="fw-bold mb-3">Download App</h5>
+                <p class="small mb-3">Save $3 with App New User Only</p>
+
+                <div class="d-flex align-items-center">
+                    <img src="/image/qrcode.svg" alt="QR code" width="80" height="80" class="me-3">
+
+                    <div>
+                        <a href="#" class="d-block mb-2">
+                            <img src="/image/googleplay.svg" alt="Google Play" width="100">
+                        </a>
+                        <a href="#">
+                            <img src="/image/appstore.svg" alt="App Store" width="100">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-3 d-flex gap-3">
+                    <a href="#" class="text-white">
+                        <img src="/image/facebook.svg" alt="Facebook" width="24">
+                    </a>
+                    <a href="#" class="text-white">
+                        <img src="/image/twitter.svg" alt="Twitter" width="24">
+                    </a>
+                    <a href="#" class="text-white">
+                        <img src="/image/instagram.svg" alt="Instagram" width="24">
+                    </a>
+                    <a href="#" class="text-white">
+                        <img src="/image/linkedin.svg" alt="LinkedIn" width="24">
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

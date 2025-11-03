@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create Product</title>
+</head>
+<body>
+<div class="container">
+  <h1>Create New Product</h1>
+
+  <form th:action="@{/product/create}" method="post" enctype="multipart/form-data">
+
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name"
+             th:value="${product.name}" required/>
+    </div>
+
+    <div>
+      <label for="description">Description:</label>
+      <textarea id="description" name="description"
+                th:text="${product.description}"></textarea>
+    </div>
+
+    <div>
+      <label for="categoryId">Category:</label>
+      <select id="categoryId" name="category.id">
+        <option value="">-- Select Category --</option>
+        <option th:each="cat : ${categories}"
+                th:value="${cat.id}"
+                th:text="${cat.name}">
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <label for="price">Price:</label>
+      <input type="number" step="0.01" id="price" name="price"
+             th:value="${product.price}" required/>
+    </div>
+
+    <div>
+      <label for="availAmount">Available Amount:</label>
+      <input type="number" id="availAmount" name="availAmount"
+             th:value="${product.availAmount}" required/>
+    </div>
+
+    <div>
+      <label for="discount">Discount %:</label>
+      <input type="number" id="discount" name="discount"
+             th:value="${product.discount}" />
+    </div>
+
+
+    <div>
+      <label for="files">Images:</label>
+      <input type="file" id="files" name="files" multiple/>
+    </div>
+
+    <div>
+      <label for="mainIndex">Main image index:</label>
+      <input type="number" id="mainIndex" name="mainIndex" value="0"/>
+    </div>
+
+    <button type="submit">Create</button>
+    <a th:href="@{/product}">Cancel</a>
+  </form>
+</div>
+</body>
+</html>

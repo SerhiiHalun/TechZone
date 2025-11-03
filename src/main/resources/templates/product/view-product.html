@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>View Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/product-view.css">
+    <link rel="stylesheet" href="/css/product.css">
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="/image/logo.svg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <ul class="navbar-nav top-menu mb-2 mb-lg-0 gap-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/search#categories">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/home#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/home#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+            <form class="d-flex" role="search" th:action="@{/product/search}" method="get">
+                <input class="form-control form-control-sm me-2"
+                       type="search" name="query"
+                       placeholder="Search"
+                       aria-label="Search">
+                <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
+            </form>
+
+            <a href="/product/cart">
+                <img src="/image/cart.svg" alt="Cart" width="24" height="24">
+            </a>
+            <a href="/auth/account">
+                <img src="/image/user.svg" alt="User" width="24" height="24">
+            </a>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div th:each="img, iterStat : ${product.images}" th:classappend="${iterStat.index == 0} ? ' active' : ''" class="carousel-item">
+                        <img th:src="${img.imgUrl}" class="d-block w-100" alt="Product Image" style="object-fit: contain; max-height: 500px;">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2 th:text="${product.name}" class="fw-bold mb-2"></h2>
+            <p class="text-success fw-semibold" th:text="${product.availAmount > 0 ? 'In Stock' : 'Out of Stock'}"></p>
+
+            <h4 class="text-danger" th:text="${'$' + product.price}">$0.00</h4>
+
+            <form method="post" th:action="@{/cart/add}" class="mt-4">
+                <input type="hidden" name="productId" th:value="${product.id}" />
+                <div class="d-flex align-items-center mb-3">
+                    <label for="quantity" class="me-2 fw-semibold">Amount:</label>
+                    <input type="number" class="form-control w-auto" name="amount" id="quantity" min="1" value="1">
+                </div>
+                <button type="submit" class="btn btn-success">Buy Now</button>
+            </form>
+            
+            <p class="mt-4" th:text="${product.description}">Product description goes here...</p>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-8 mx-auto">
+
+            <button class="btn btn-outline-secondary mb-3" type="button"
+                    onclick="document.getElementById('reviewForm').classList.toggle('d-none')">
+                Leave a Review
+            </button>
+
+            <form id="reviewForm" method="post" th:action="@{/products/{productId}/review(productId=${product.id})}" th:object="${review}" class="d-none">
+            <input type="hidden" name="productId" th:value="${product.id}" />
+                <div class="rating mb-3">
+                    <input type="hidden" name="rating" id="ratingInput" value="0">
+                    <span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="feedback" class="form-label">Comment</label>
+                    <textarea class="form-control" id="feedback" name="feedback" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+
+        </div>
+    </div>
+    <div class="container px-2 position-relative">
+        <div class="row mt-5">
+            <div class="col-md-8 mx-auto">
+                <h4 class="mb-4">Customer Reviews</h4>
+
+                <div th:if="${product.feedbackList != null and !#lists.isEmpty(product.feedbackList)}">
+                    <div th:each="feedback : ${product.feedbackList}" class="card mb-3">
+                        <div class="card-body">
+                            <h6 class="card-subtitle text-muted" th:text="${feedback.getUser().getFirstName()}">User Name</h6>
+                            <div class="text-warning">
+                    <span th:each="star : ${#numbers.sequence(1,5)}"
+                          th:text="${star <= feedback.rating ? '★' : '☆'}"></span>
+                            </div>
+                            <p class="card-text" th:text="${feedback.feedback}">User comment goes here...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:unless="${product.feedbackList != null and !#lists.isEmpty(product.feedbackList)}">
+                    <p>No reviews yet.</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="mb-4">
+            <div class="d-flex align-items-center mb-1">
+                <div style="width: 20px; height: 40px; background-color: #B5C431; border-radius: 2px; margin-right: 10px;"></div>
+                <h6 class="mb-0 fw-bold" style="font-size: 16px; color: #B5C431;">Today’s</h6>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between" style="margin-left: 24px;">
+                <h2 class="fw-bold text-dark m-0">Special offers</h2>
+                <div>
+                    <button onclick="scrollOffers(-1)" class="btn btn-outline-secondary btn-sm me-2">←</button>
+                    <button onclick="scrollOffers(1)" class="btn btn-outline-secondary btn-sm">→</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="offer-container" class="d-flex overflow-hidden gap-4">
+            <div th:each="product : ${specialProducts}" class="card border-0 bg-light" style="min-width: 220px;">
+                <a th:href="@{/product/{id}(id=${product.id})}" class="text-decoration-none text-dark">
+                    <img th:if="${!#lists.isEmpty(product.images)}"
+                         th:src="${product.images[0].imgUrl}"
+                         class="card-img-top"
+                         style="height: 180px; object-fit: contain;" alt="Product Image">
+
+                    <div class="card-body px-2">
+                        <h6 th:text="${product.name}" class="product-name mb-1"></h6>
+
+                        <div>
+                            <span th:text="${'$' + product.finalPrice}" class="text-success fw-bold">$0.00</span>
+                            <small class="text-muted text-decoration-line-through ms-2"
+                                   th:text="${'$' + product.price}">$0.00</small>
+                        </div>
+                        <div class="small text-warning">
+                            ★★★★☆ <span class="text-muted">(98)</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<footer class="bg-dark text-white pt-5 pb-4">
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-12 col-md-6 col-lg-3 mb-4">
+                <h5 class="fw-bold mb-3">Exclusive</h5>
+                <p class="mb-1">Subscribe</p>
+                <p class="small">Get 10% off your first order</p>
+
+                <form class="d-flex" action="#" method="post">
+                    <input
+                            class="form-control form-control-sm me-2"
+                            type="email"
+                            placeholder="Enter your email"
+                            aria-label="Email"
+                            required
+                    >
+                    <button class="btn btn-sm btn-primary" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M15.864.043A.5.5 0 0 1 16 .5v15a.5.5 0 0 1-.65.48l-15-5.5a.5.5 0 0 1 0-.94l15-5.5a.5.5 0 0 1 .514.003z"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-2 mb-4" id="contact">
+                <h5 class="fw-bold mb-3">Support</h5>
+                <address class="small mb-2">
+                    Beresteysky Avenue, 32, <br>
+                    Kiev, Ukraine, 04116
+                </address>
+                <p class="small mb-1">personal@gmail.com</p>
+                <p class="small mb-0">+380-50555-5555</p>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-2 mb-4">
+                <h5 class="fw-bold mb-3">Account</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">My Account</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Login / Register</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Cart</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Wishlist</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Shop</a></li>
+                </ul>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-2 mb-4">
+                <h5 class="fw-bold mb-3">Quick Link</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">Terms Of Use</a></li>
+                    <li class="mb-1"><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="col-12 col-lg-3 mb-4">
+                <h5 class="fw-bold mb-3">Download App</h5>
+                <p class="small mb-3">Save $3 with App New User Only</p>
+
+                <div class="d-flex align-items-center">
+                    <img src="/image/qrcode.svg" alt="QR code" width="80" height="80" class="me-3">
+
+                    <div>
+                        <a href="#" class="d-block mb-2">
+                            <img src="/image/googleplay.svg" alt="Google Play" width="100">
+                        </a>
+                        <a href="#">
+                            <img src="/image/appstore.svg" alt="App Store" width="100">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-3 d-flex gap-3">
+                    <a href="#" class="text-white">
+                        <img src="/image/facebook.svg" alt="Facebook" width="24">
+                    </a>
+                    <a href="#" class="text-white">
+                        <img src="/image/twitter.svg" alt="Twitter" width="24">
+                    </a>
+                    <a href="#" class="text-white">
+                        <img src="/image/instagram.svg" alt="Instagram" width="24">
+                    </a>
+                    <a href="#" class="text-white">
+                        <img src="/image/linkedin.svg" alt="LinkedIn" width="24">
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</footer>
+<script>
+    function scrollOffers(direction) {
+        const container = document.getElementById("offer-container");
+        const scrollAmount = 240;
+        container.scrollBy({
+            left: direction * scrollAmount,
+            behavior: "smooth"
+        });
+    }
+</script>
+<script>
+    const stars = document.querySelectorAll('.rating .star');
+    const ratingInput = document.getElementById('ratingInput');
+
+    stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+            const realValue = 5 - index;
+            ratingInput.value = realValue;
+            stars.forEach(s => s.classList.remove('selected'));
+            for (let i = stars.length - 1; i >= index; i--) {
+                stars[i].classList.add('selected');
+            }
+        });
+    });
+
+
+</script>
+<script>
+    const reviewForm = document.getElementById('reviewForm');
+    reviewForm.addEventListener('submit', function (event) {
+        const feedback = document.getElementById('feedback').value.trim();
+        if (feedback.length < 5) {
+            alert('The review must be at least 5 characters long.');
+            event.preventDefault();
+        }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+
+

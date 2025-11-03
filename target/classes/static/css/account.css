@@ -1,0 +1,22 @@
+
+html, body { height: 100%; }
+body       { display: flex; flex-direction: column; }
+
+main.account-wrapper { flex: 1; }
+
+.account-menu .nav-link {
+    color: #6c757d;
+    font-size: .875rem;
+    padding-left: 0;
+}
+.account-menu .nav-link:hover,
+.account-menu .nav-link.active {
+    color: #A7C433;
+    font-weight: 600;
+}
+
+.card .form-label       { font-size: .75rem;   color: #6c757d; }
+.card .btn-success       { background:#A7C433; border-color:#A7C433; }
+.card .btn-success:hover { background:#96b233; border-color:#96b233; }
+
+.footer { background:#111; color:#fff; }
