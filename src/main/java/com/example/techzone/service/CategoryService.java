@@ -24,7 +24,7 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public Category findById(int id) {
+    public Category findById(long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Category with id " + id + " not found"));
     }
@@ -33,17 +33,14 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         if (!categoryRepository.existsById(id)) {
             throw new NoSuchElementException("Category with id " + id + " not found");
         }
         categoryRepository.deleteById(id);
     }
-    public List<Category> getAllCategory() {
-        return categoryRepository.findAll();
-    }
 
-    public Category getCategoryById(int id) {
+    public Category getCategoryById(long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Category not found"));
     }
@@ -52,7 +49,7 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public Category updateCategory(int id,Category category) {
+    public Category updateCategory(long id,Category category) {
         Category toUpdate = getCategoryById(id);
         if (category.getName() != null && !category.getName().isEmpty()) {
             toUpdate.setName(category.getName());
@@ -60,7 +57,7 @@ public class CategoryService {
         return categoryRepository.save(toUpdate);
     }
 
-    public void deleteCategory(int id) {
+    public void deleteCategory(long id) {
         categoryRepository.deleteById(id);
     }
 

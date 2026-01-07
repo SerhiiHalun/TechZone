@@ -31,25 +31,20 @@ public class UserService {
         this.jwtTokenProvider = jwtTokenProvider;
         this.passwordEncoder = passwordEncoder;
     }
-
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-    public User getUserById(int id) {
+    public User getUserById(long id) {
         return userRepository.findById(id).orElse(null);
     }
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
-
     public User registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
         return userRepository.save(user);
     }
-
-
     public String loginUser(String email, String password) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -63,7 +58,6 @@ public class UserService {
         return jwtTokenProvider.generateToken(user.getEmail(), List.of(Role.USER.name()));
 
     }
-
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -81,7 +75,6 @@ public class UserService {
         return userRepository.findByEmail(email)
                 .orElseThrow(RuntimeException::new);
     }
-
     public User updateUser(String firstName, String lastName, String email, String password, String role) {
         User user = getCurrentUser();
             if (firstName != null && !firstName.isBlank()) {
@@ -105,9 +98,7 @@ public class UserService {
             }
             return userRepository.save(user);
     }
-
-
-    public void deleteUser(int id) {
+    public void deleteUser(long id) {
         userRepository.deleteById(id);
     }
 }

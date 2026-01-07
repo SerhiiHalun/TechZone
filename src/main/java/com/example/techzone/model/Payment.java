@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -16,18 +17,26 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "order_id", nullable = false)
-//    private Order order;
+    @OneToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
-    @Column(nullable = false)
+    @Column(name ="payment_method" ,nullable = false)
     private String paymentMethod;
 
-    @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status;
+
+    @Column(name = "amount", nullable = false)
+    private Double amount;
 
     @Column(name = "payment_date", nullable = false)
-    private LocalDate paymentDate;
+    private LocalDateTime paymentDate ;
+
+    public enum Status{
+        SUCCESS, FAILED, PENDING
+    }
 }

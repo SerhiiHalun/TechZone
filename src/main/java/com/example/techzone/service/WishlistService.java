@@ -17,16 +17,13 @@ public class WishlistService {
     public WishlistService(WishlistRepository wishlistRepository) {
         this.wishlistRepository = wishlistRepository;
     }
-
     public List<Wishlist> getAllWishlists() {
         return wishlistRepository.findAll();
     }
-
-    public Wishlist getWishlistById(int id) {
+    public Wishlist getWishlistById(long id) {
         return wishlistRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Wishlist not found"));
     }
-
     public Wishlist createWishlist(User user, Product product) {
         Wishlist wishlist = new Wishlist();
         wishlist.setUser(user);
@@ -34,14 +31,13 @@ public class WishlistService {
 
         return wishlistRepository.save(wishlist);
     }
-    public Wishlist updateWishlist(int id, User user, Product product) {
+    public Wishlist updateWishlist(long id, User user, Product product) {
         Wishlist wishlist = getWishlistById(id);
         wishlist.setUser(user);
         wishlist.setProduct(product);
         return wishlistRepository.save(wishlist);
     }
-
-    public void deleteWishlist(int id) {
+    public void deleteWishlist(long id) {
         wishlistRepository.deleteById(id);
     }
 }

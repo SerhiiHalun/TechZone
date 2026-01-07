@@ -22,7 +22,7 @@ public class CouponService {
         return couponRepository.findAll();
     }
 
-    public Coupon getCouponById(int id) {
+    public Coupon getCouponById(long id) {
         return couponRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Coupon not found"));
     }
@@ -37,7 +37,7 @@ public class CouponService {
         return couponRepository.save(coupon);
     }
 
-    public Coupon updateCoupon(int id, String name, Long discount, User user, LocalDate expirationDate, Boolean isUsed) {
+    public Coupon updateCoupon(long id, String name, Long discount, User user, LocalDate expirationDate, Boolean isUsed) {
         return couponRepository.findById(id).map(coupon -> {
             if (name != null && !name.isBlank()) {
                 coupon.setName(name);
@@ -58,7 +58,7 @@ public class CouponService {
         }).orElseThrow(() -> new RuntimeException("Coupon not found"));
     }
 
-    public void deleteCoupon(int id) {
+    public void deleteCoupon(long id) {
         couponRepository.deleteById(id);
     }
 }

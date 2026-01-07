@@ -20,7 +20,7 @@ public class CategoryApiController {
 
     @GetMapping("/get-all")
     public ResponseEntity<List<Category>> getAll() {
-        List<Category> categories = categoryService.getAllCategory();
+        List<Category> categories = categoryService.findAll();
         return categories.isEmpty()
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.ok(categories);

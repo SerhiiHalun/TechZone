@@ -11,7 +11,7 @@ import java.util.Optional;
 
 
 @Repository
-public interface AddressRepository extends JpaRepository<Address, Integer> {
+public interface AddressRepository extends JpaRepository<Address, Long> {
 
     Optional<Address> findByDefaultAddressIsTrue();
     Optional<Address> findTopByOrderByIdDesc();

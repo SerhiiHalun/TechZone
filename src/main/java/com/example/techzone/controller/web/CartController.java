@@ -2,8 +2,8 @@ package com.example.techzone.controller.web;
 
 
 import com.example.techzone.dto.CartItemDTO;
-import com.example.techzone.service.CartService;
 import com.example.techzone.service.ProductService;
+import com.example.techzone.service.SessionCartService;
 import com.example.techzone.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @AllArgsConstructor
 @RequestMapping("/cart")
 public class CartController {
-    private CartService cartService;
+
+    private SessionCartService sessionCartService;
     private ProductService productService;
     private UserService userservice;
 
@@ -31,7 +31,7 @@ public class CartController {
     public String addToCart(@RequestParam("productId") int productId,
                             @RequestParam("amount") int amount,
                             HttpSession session) {
-        cartService.addToSessionCart(productId, amount, session);
+        sessionCartService.addToSessionCart(productId, amount, session);
         return "redirect:/cart/list";
     }
 
@@ -42,30 +42,27 @@ public class CartController {
         }
 
         int pageSize = 10;
-        Page<CartItemDTO> cartPage = cartService.getCartPage(session, page, pageSize);
+        Page<CartItemDTO> cartPage = sessionCartService.getCartPage(session, page, pageSize);
         model.addAttribute("cartPage", cartPage);
-        model.addAttribute("totalPrice", cartService.calculateTotal(cartService.getSessionCart(session)));
+        model.addAttribute("totalPrice", sessionCartService.calculateTotal(sessionCartService.getSessionCart(session)));
 
         return "/product/cart";
 
     }
     @PostMapping("/increase")
     public String increaseAmount(@RequestParam int productId, HttpSession session) {
-        cartService.updateAmount(productId, 1, session);
+        sessionCartService.updateAmount(productId, 1, session);
         return "redirect:/cart/list";
     }
-
-
     @PostMapping("/decrease")
     public String decreaseAmount(@RequestParam int productId, HttpSession session) {
-        cartService.updateAmount(productId, -1, session);
+        sessionCartService.updateAmount(productId, -1, session);
         return "redirect:/cart/list";
     }
-
     @PostMapping("/payment")
     public String proceedToPayment(HttpSession session, Model model) {
-        List<CartItemDTO> cart = cartService.getSessionCart(session);
-        double total = cartService.calculateTotal(cart);
+        List<CartItemDTO> cart = sessionCartService.getSessionCart(session);
+        double total = sessionCartService.calculateTotal(cart);
 
         if (cart.isEmpty()) {
             model.addAttribute("message", "Your cart is empty!");
@@ -73,7 +70,7 @@ public class CartController {
         }
 
         model.addAttribute("totalPrice", total);
-        return "payment";
+        return "redirect:/payment/checkout";
     }
 
 }

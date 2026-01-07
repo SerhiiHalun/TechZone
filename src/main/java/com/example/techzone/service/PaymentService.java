@@ -1,56 +1,74 @@
 package com.example.techzone.service;
 
-import com.example.techzone.model.Payment;
-import com.example.techzone.repository.PaymentRepository;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.techzone.model.Order;
+import com.example.techzone.model.Payment;
+import com.example.techzone.repository.OrderRepository;
+import com.example.techzone.repository.PaymentRepository;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
+import com.stripe.param.PaymentIntentCreateParams;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+
 
 @Service
+@RequiredArgsConstructor
 public class PaymentService {
+
     private final PaymentRepository paymentRepository;
+    private final OrderRepository orderRepository;
 
-    public PaymentService(PaymentRepository paymentRepository) {
-        this.paymentRepository = paymentRepository;
+    @Value("${stripe.api.key}")
+    private String stripeApiKey;
+
+    public String createPaymentIntent(Order order) throws StripeException {
+        Stripe.apiKey = stripeApiKey;
+
+        long amountInCents = (long) (order.getTotalAmount() * 100);
+
+        PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
+                .setAmount(amountInCents)
+                .setCurrency("usd")
+                .setDescription("Order #" + order.getId() + " for " + order.getUser().getFirstName())
+                .putMetadata("order_id", order.getId().toString())
+                .build();
+
+        PaymentIntent intent = PaymentIntent.create(params);
+
+
+        Payment payment = new Payment();
+        payment.setOrder(order);
+        payment.setPaymentMethod("STRIPE");
+        payment.setAmount(order.getTotalAmount());
+        payment.setStatus(Payment.Status.PENDING);
+        payment.setPaymentDate(LocalDateTime.now());
+        paymentRepository.save(payment);
+
+        return intent.getClientSecret();
     }
 
-    public List<Payment> getAllPayments() {
-        return paymentRepository.findAll();
+    @Transactional
+    public void updatePaymentStatus(Long orderId, boolean success) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        order.setStatus(success ? Order.Status.PAID : Order.Status.CANCELLED);
+        orderRepository.save(order);
+
+        Payment payment = order.getPayment();
+        if (payment != null) {
+            payment.setStatus(success ? Payment.Status.SUCCESS : Payment.Status.FAILED);
+            paymentRepository.save(payment);
+        }
     }
 
-    public Payment getPaymentById(int id) {
-        return paymentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Payment not found"));
-    }
 
-//    public Payment createPayment(Order order, String paymentMethod, String status) {
-//        Payment payment = new Payment();
-//        payment.setOrder(order);
-//        payment.setPaymentMethod(paymentMethod);
-//        payment.setStatus(status);
-//        payment.setPaymentDate(LocalDate.now());
-//
-//        return paymentRepository.save(payment);
-//    }
-//
-//    public Payment updatePayment(int id, Order order, String paymentMethod, String status) {
-//        return paymentRepository.findById(id).map(payment -> {
-//            if (order != null) {
-//                payment.setOrder(order);
-//            }
-//            if (paymentMethod != null) {
-//                payment.setPaymentMethod(paymentMethod);
-//            }
-//            if (status != null) {
-//                payment.setStatus(status);
-//            }
-//
-//            return paymentRepository.save(payment);
-//        }).orElseThrow(() -> new RuntimeException("Payment not found"));
-//    }
-
-    public void deletePayment(int id) {
-        paymentRepository.deleteById(id);
-    }
 }
+

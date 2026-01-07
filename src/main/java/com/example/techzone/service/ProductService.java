@@ -125,7 +125,7 @@ public class ProductService {
     }
 
     @Transactional
-    public void deleteProduct(int id) {
+    public void deleteProduct(long id) {
         if (!productRepository.existsById(id)) {
             throw new NoSuchElementException("Product with id " + id + " not found");
         }

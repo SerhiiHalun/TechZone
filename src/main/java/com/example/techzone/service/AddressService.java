@@ -31,7 +31,7 @@ public class AddressService {
         return addressRepository.findAllByUser(userService.getCurrentUser());
     }
 
-    public Address getAddressById(int id) {
+    public Address getAddressById(long id) {
         User user = userService.getCurrentUser();
         Address address = addressRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Address not found"));
@@ -79,7 +79,7 @@ public class AddressService {
     }
 
     @Transactional
-    public Address updateAddress(int id, String country, String city, String state,
+    public Address updateAddress(long id, String country, String city, String state,
                                  String street, String phoneNumber, String postCode, Boolean isDefault) {
 
         return addressRepository.findById(id).map(address -> {
@@ -119,13 +119,12 @@ public class AddressService {
     }
 
     @Transactional
-    public void deleteAddress(int id) {
+    public void deleteAddress(long id) {
         Address address = addressRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Address not found"));
 
         addressRepository.deleteById(id);
 
-        // Change default status if deleted address was default
         if (address.isDefaultAddress()) {
             addressRepository.findTopByOrderByIdDesc().ifPresent(newDefault -> {
                 newDefault.setDefaultAddress(true);

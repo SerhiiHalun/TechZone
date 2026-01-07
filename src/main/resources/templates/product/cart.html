@@ -60,7 +60,16 @@
 </nav>
 
 <div class="container my-5">
-    <h3 class="mb-4">🛒 Your Shopping Cart</h3>
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${error}">Error message</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div th:if="${message}" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <span th:text="${message}">Warning message</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <h3 class="mb-4">Your Shopping Cart</h3>
 
     <div th:if="${#lists.isEmpty(cartPage.content)}">
         <p>Your cart is empty.</p>
@@ -99,20 +108,18 @@
             </div>
         </div>
 
-        <!-- Загальна сума -->
+
         <div class="list-group-item d-flex justify-content-between bg-light mt-3">
             <strong>Total:</strong>
             <span class="fw-bold text-danger" th:text="'$' + ${totalPrice}">$0.00</span>
         </div>
 
-        <!-- Кнопка оплати -->
         <div class="text-end mt-3">
             <form th:action="@{/cart/payment}" method="post">
-                <button class="btn btn-success btn-lg">💳 Proceed to Payment</button>
+                <button class="btn btn-success btn-lg">Proceed to Payment</button>
             </form>
         </div>
 
-        <!-- Пагінація -->
         <div class="d-flex justify-content-center align-items-center mt-4">
             <form th:if="${cartPage.totalPages > 1}" th:action="@{/cart/list}" method="get" class="d-flex align-items-center">
                 <input type="hidden" name="page" th:value="${cartPage.number - 1}" th:if="${cartPage.hasPrevious()}">

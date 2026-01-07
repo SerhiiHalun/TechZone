@@ -2,23 +2,22 @@ package com.example.techzone.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(name = "name",nullable = false)
     private String name;
     @Column(name = "description", nullable = false, columnDefinition = "text")
@@ -33,7 +32,7 @@ public class Product {
     @CreationTimestamp
     private LocalDateTime createdDate;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch =  FetchType.EAGER)
     @JsonManagedReference
     private List<Image> images;
     @ManyToOne

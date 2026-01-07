@@ -1,0 +1,104 @@
+package com.example.techzone.service;
+
+import com.example.techzone.dto.CartItemDTO;
+import com.example.techzone.model.*;
+import com.example.techzone.repository.OrderRepository;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class SessionCartService {
+    private final ProductService productService;
+    private final OrderRepository orderRepository;
+    private final UserService userService;
+
+    public Page<CartItemDTO> getCartPage(HttpSession session, int page, int size) {
+        List<CartItemDTO> cart = getSessionCart(session);
+
+        int start = Math.min(page * size, cart.size());
+        int end = Math.min((page + 1) * size, cart.size());
+        List<CartItemDTO> subList = cart.subList(start, end);
+
+        Pageable pageable = PageRequest.of(page, size);
+        return new PageImpl<>(subList, pageable, cart.size());
+    }
+    public double calculateTotal(List<CartItemDTO> cart) {
+        return cart.stream()
+                .mapToDouble(item -> item.getProduct().getPrice() * item.getAmount())
+                .sum();
+    }
+    @Transactional
+    public Order createOrderFromSession(HttpSession session,String userEmail) {
+        List<CartItemDTO> cartItems = getSessionCart(session);
+        User user = userService.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalStateException("User not found"));
+
+        if (cartItems.isEmpty()) throw new IllegalStateException("Cart is empty");
+        if (user == null) throw new IllegalStateException("User not found in session");
+        Order order = new Order();
+        order.setUser(user);
+        order.setStatus(Order.Status.PENDING);
+        order.setCreationDate(LocalDateTime.now());
+        order.setTotalAmount(calculateTotal(cartItems));
+
+        List<OrderItem> orderItems = cartItems.stream().map(dto -> {
+            OrderItem item = new OrderItem();
+            item.setOrder(order);
+            item.setProduct(dto.getProduct());
+            item.setAmount((long) dto.getAmount());
+            item.setPriceAtPurchase(dto.getProduct().getPrice());
+            return item;
+        }).collect(Collectors.toList());
+
+        order.setItems(orderItems);
+
+        return orderRepository.save(order); // Сохранит и Order, и OrderItems благодаря CascadeType.ALL
+    }
+    public void addToSessionCart(int productId, int amount, HttpSession session) {
+        Product product = productService.getProductById(productId);
+        List<CartItemDTO> cart = getSessionCart(session);
+
+        Optional<CartItemDTO> existing = cart.stream()
+                .filter(item -> item.getProduct().getId() == productId)
+                .findFirst();
+
+        if (existing.isPresent()) {
+            CartItemDTO item = existing.get();
+            item.setAmount(Math.min(item.getAmount() + amount, 10));
+        } else {
+            cart.add(new CartItemDTO(product, Math.min(amount, 10)));
+        }
+        session.setAttribute("cart", cart);
+    }
+    public void updateAmount(int productId, int delta, HttpSession session) {
+        List<CartItemDTO> cart = getSessionCart(session);
+        cart.forEach(item -> {
+            if (item.getProduct().getId() == productId) {
+                item.setAmount(Math.min(Math.max(item.getAmount() + delta, 1), 10));
+            }
+        });
+        session.setAttribute("cart", cart);
+    }
+    public List<CartItemDTO> getSessionCart(HttpSession session) {
+        @SuppressWarnings("unchecked")
+        List<CartItemDTO> cart = (List<CartItemDTO>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+            session.setAttribute("cart", cart);
+        }
+        return cart;
+    }
+}

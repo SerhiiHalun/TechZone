@@ -14,7 +14,7 @@ import java.util.List;
 public interface ImageRepository extends JpaRepository<Image,Long> {
     @Modifying
     @Query("UPDATE Image i SET i.isMain = false WHERE i.product.id = :productId")
-    void updateIsMainFalseForProduct(@Param("productId") int productId);
-    List<Image> findAllByProduct_Id(int productId);
+    void updateIsMainFalseForProduct(@Param("productId") Long productId);
+    List<Image> findAllByProduct_Id(Long productId);
     List<Image> findAllByIsMainTrue();
 }

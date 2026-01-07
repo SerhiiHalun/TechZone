@@ -115,7 +115,12 @@
             <artifactId>cloudinary-http44</artifactId>
             <version>1.39.0</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/com.stripe/stripe-java -->
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>30.1.0</version>
+        </dependency>
     </dependencies>
     <repositories>
 

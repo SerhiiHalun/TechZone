@@ -63,7 +63,7 @@ public class ImageService {
                 .orElseThrow(() -> new NoSuchElementException("Image with id " + id + " not found"));
     }
     @Transactional(readOnly = true)
-    public List<Image> getImagesByProductId(int productId) {
+    public List<Image> getImagesByProductId(Long productId) {
         return imageRepository.findAllByProduct_Id(productId);
     }
 
@@ -80,7 +80,6 @@ public class ImageService {
     @Transactional
     public Image updateImage(Long imageId, MultipartFile newFile, Boolean newIsMain) {
         Image image = getImageById(imageId);
-
 
         if (newFile != null && !newFile.isEmpty()) {
 

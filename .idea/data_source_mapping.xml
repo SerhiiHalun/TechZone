@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="das://61d1a0fa-2186-4bf8-adc3-94cce38a9176/database/postgres/schema/public/table/orders.sql" value="61d1a0fa-2186-4bf8-adc3-94cce38a9176" />
+    <file url="das://61d1a0fa-2186-4bf8-adc3-94cce38a9176/database/postgres/schema/public/table/payments.sql" value="61d1a0fa-2186-4bf8-adc3-94cce38a9176" />
+  </component>
+</project>

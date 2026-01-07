@@ -14,22 +14,22 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(nullable = false)
-
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(name = "last_name",nullable = false)
     private String lastName;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "email",unique = true, nullable = false)
     @Email
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
 }
