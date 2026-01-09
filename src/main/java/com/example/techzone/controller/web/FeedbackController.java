@@ -25,6 +25,9 @@ public class FeedbackController {
     public String addReview(@ModelAttribute("review") @Valid FeedbackCreateDto dto,
                             @PathVariable int productId,
                             Principal principal) {
+        if (principal == null) {
+            return "redirect:/auth/login";
+        }
         feedbackService.addFeedback(productId, dto, principal.getName());
         return "redirect:/product/" + productId;
     }

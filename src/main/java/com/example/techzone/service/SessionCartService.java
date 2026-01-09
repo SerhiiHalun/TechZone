@@ -37,7 +37,16 @@ public class SessionCartService {
     }
     public double calculateTotal(List<CartItemDTO> cart) {
         return cart.stream()
-                .mapToDouble(item -> item.getProduct().getPrice() * item.getAmount())
+                .mapToDouble(item -> {
+                    double price = item.getProduct().getPrice();
+                    long discount = item.getProduct().getDiscount();
+
+                    if (discount > 0) {
+                        price = price * (1 - discount / 100.0);
+                        price = Math.round(price * 100.0) / 100.0;
+                    }
+                    return price * item.getAmount();
+                })
                 .sum();
     }
     @Transactional
@@ -65,7 +74,7 @@ public class SessionCartService {
 
         order.setItems(orderItems);
 
-        return orderRepository.save(order); // Сохранит и Order, и OrderItems благодаря CascadeType.ALL
+        return orderRepository.save(order);
     }
     public void addToSessionCart(int productId, int amount, HttpSession session) {
         Product product = productService.getProductById(productId);

@@ -113,20 +113,31 @@
         <div id="offer-container" class="d-flex overflow-hidden gap-4">
             <div th:each="product : ${specialProducts}" class="card border-0 bg-light" style="min-width: 220px;">
                 <a th:href="@{/product/{id}(id=${product.id})}" class="text-decoration-none text-dark">
-                    <img th:if="${!#lists.isEmpty(product.images)}"
-                         th:src="${product.images[0].imgUrl}"
+
+                    <img th:if="${product.imgUrl != null}"
+                         th:src="${product.imgUrl}"
                          class="card-img-top"
                          style="height: 180px; object-fit: contain;" alt="Product Image">
+                    <img th:if="${product.imgUrl == null}"
+                         src="/image/no-image.png"
+                         class="card-img-top"
+                         style="height: 180px; object-fit: contain;" alt="No Image">
 
                     <div class="card-body px-2">
                         <h6 th:text="${product.name}" class="mb-1"></h6>
                         <div>
                             <span th:text="${'$' + product.finalPrice}" class="text-success fw-bold">$0.00</span>
                             <small class="text-muted text-decoration-line-through ms-2"
+                                   th:if="${product.discount > 0}"
                                    th:text="${'$' + product.price}">$0.00</small>
                         </div>
+
                         <div class="small text-warning">
-                            ★★★★☆ <span class="text-muted">(98)</span>
+                            <span th:each="i : ${#numbers.sequence(1, 5)}"
+                                  th:text="${product.intRating >= i ? '★' : '☆'}"
+                                  style="font-size: 1.2em;">
+                            </span>
+                            <span class="text-muted" th:text="'(' + ${product.reviewCount} + ')'">(0)</span>
                         </div>
                     </div>
                 </a>
@@ -182,17 +193,32 @@
             <div class="col-md-6 col-lg-4 col-xl-2" th:each="product : ${randomProducts}">
                 <div class="card border-0 bg-light h-100">
                     <a th:href="@{/product/{id}(id=${product.id})}" class="text-decoration-none text-dark">
-                        <img th:if="${!#lists.isEmpty(product.images)}"
-                             th:src="${product.images[0].imgUrl}"
+
+                        <img th:if="${product.imgUrl != null}"
+                             th:src="${product.imgUrl}"
                              class="card-img-top"
                              style="height: 180px; object-fit: contain;" alt="Product Image">
+                        <img th:if="${product.imgUrl == null}"
+                             src="/image/no-image.png"
+                             class="card-img-top"
+                             style="height: 180px; object-fit: contain;" alt="No Image">
+
                         <div class="card-body px-2">
                             <h6 class="mb-1 product-name" th:text="${product.name}"></h6>
+
                             <div>
-                                <span th:text="${'$' + product.price}" class="text-success fw-bold">$0.00</span>
+                                <span th:text="${'$' + product.finalPrice}" class="text-success fw-bold">$0.00</span>
+                                <small class="text-muted text-decoration-line-through ms-2"
+                                       th:if="${product.discount > 0}"
+                                       th:text="${'$' + product.price}">$0.00</small>
                             </div>
+
                             <div class="small text-warning">
-                                ★★★★☆ <span class="text-muted">(98)</span>
+                            <span th:each="i : ${#numbers.sequence(1, 5)}"
+                                  th:text="${product.intRating >= i ? '★' : '☆'}"
+                                  style="font-size: 1.2em;">
+                            </span>
+                                <span class="text-muted" th:text="'(' + ${product.reviewCount} + ')'">(0)</span>
                             </div>
                         </div>
                     </a>

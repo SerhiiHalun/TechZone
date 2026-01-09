@@ -4,110 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ecb35a9-5adb-4d40-8e98-062b6e9bf674" name="Changes" comment="Add stripe pay system&#10;Rework product cart (Delete previously cart in database and create new structure on orderItem)">
-      <change afterPath="$PROJECT_DIR$/.idea/data_source_mapping.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/configuration/StripeConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/PaymentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/SessionCartService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application-secret.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/product/payment.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/application-secret.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/configuration/StripeConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/web/PaymentController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Order$Status.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/model/OrderItem.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Payment$Status.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/service/SessionCartService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/templates/product/payment.html" afterDir="false" />
+    <list default="true" id="6ecb35a9-5adb-4d40-8e98-062b6e9bf674" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/dto/ProductCardDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4635de71-ab37-40d9-a02b-3b5c8220d0f8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4635de71-ab37-40d9-a02b-3b5c8220d0f8.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/61d1a0fa-2186-4bf8-adc3-94cce38a9176.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/61d1a0fa-2186-4bf8-adc3-94cce38a9176.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/api/CategoryApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/api/CategoryApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/OrderItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Coupon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Coupon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Feedback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Feedback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/FeedbackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/FeedbackController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Wishlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Wishlist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/AddressRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/AddressRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/CartRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/CategoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/CouponRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/CouponRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/ImageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/ImageRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/PaymentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/WishlistRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/WishlistRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/AddressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/AddressService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/CartService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/CouponService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/CouponService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/ImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/ImageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/OrderService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/PaymentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/WishlistService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/WishlistService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/product/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/product/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/api/AddressApiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/api/AddressApiController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/api/CategoryApiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/api/CategoryApiController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/api/ProductApiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/api/ProductApiController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/api/UserApiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/api/UserApiController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/web/CartController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/web/CartController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/web/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/controller/web/ProductController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Cart$Status.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Cart.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Category.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Coupon.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Coupon.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Feedback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Feedback.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Payment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Wishlist.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/model/Wishlist.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/AddressRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/AddressRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/CartRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/CategoryRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/CategoryRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/CouponRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/CouponRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/ImageRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/ImageRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/OrderRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/PaymentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/PaymentRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/ProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/ProductRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/WishlistRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/repository/WishlistRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/service/AddressService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/service/AddressService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/service/CartService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/service/CategoryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/service/CategoryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/service/CouponService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/service/CouponService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/service/ImageService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/service/ImageService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/service/OrderService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/service/PaymentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/service/PaymentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/service/ProductService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/techzone/service/WishlistService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/techzone/service/WishlistService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/auth/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/auth/account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/product/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/product/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/product/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/product/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/product/view-product.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/product/view-product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/SessionCartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/SessionCartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/product/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/product/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/product/view-product.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/product/view-product.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="122" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -140,6 +66,10 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -158,13 +88,16 @@
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
     &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
     &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;Spring Boot.TechZoneApplication.executor&quot;: &quot;Run&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -174,7 +107,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -205,8 +138,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.240" />
       </set>
     </attachedChunks>
   </component>
@@ -251,7 +184,11 @@
       <workItem from="1767220763273" duration="59000" />
       <workItem from="1767220838704" duration="590000" />
       <workItem from="1767550467949" duration="14527000" />
-      <workItem from="1767807323496" duration="4911000" />
+      <workItem from="1767807323496" duration="12671000" />
+      <workItem from="1767897480566" duration="4139000" />
+      <workItem from="1767986177417" duration="1416000" />
+      <workItem from="1767988400867" duration="2648000" />
+      <workItem from="1768001455410" duration="1396000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <option name="closed" value="true" />
@@ -301,7 +238,23 @@
       <option name="project" value="LOCAL" />
       <updated>1767811749282</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add stripe pay system&#10;Rework product cart (Delete previously cart in database and create new structure on orderItem)">
+      <option name="closed" value="true" />
+      <created>1767813017443</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1767813017443</updated>
+    </task>
+    <task id="LOCAL-00008" summary="gitignore modify">
+      <option name="closed" value="true" />
+      <created>1767814647745</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1767814647745</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,6 +277,7 @@
     <MESSAGE value="Navbar Update cart ref" />
     <MESSAGE value="Add stripe pay system&#10;Rework product cart" />
     <MESSAGE value="Add stripe pay system&#10;Rework product cart (Delete previously cart in database and create new structure on orderItem)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add stripe pay system&#10;Rework product cart (Delete previously cart in database and create new structure on orderItem)" />
+    <MESSAGE value="gitignore modify" />
+    <option name="LAST_COMMIT_MESSAGE" value="gitignore modify" />
   </component>
 </project>

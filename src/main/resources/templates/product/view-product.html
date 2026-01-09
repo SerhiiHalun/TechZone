@@ -87,7 +87,21 @@
             <h2 th:text="${product.name}" class="fw-bold mb-2"></h2>
             <p class="text-success fw-semibold" th:text="${product.availAmount > 0 ? 'In Stock' : 'Out of Stock'}"></p>
 
-            <h4 class="text-danger" th:text="${'$' + product.price}">$0.00</h4>
+            <div th:if="${product.discount > 0}">
+                <h4 class="text-danger fw-bold d-inline"
+                    th:text="'$' + ${#numbers.formatDecimal(product.price * (1 - product.discount / 100.0), 1, 2)}">
+                    $0.00
+                </h4>
+
+                <span class="text-muted text-decoration-line-through ms-2"
+                      th:text="'$' + ${product.price}">$0.00</span>
+
+                <span class="badge bg-danger ms-2" th:text="'-' + ${product.discount} + '%'">-0%</span>
+            </div>
+
+            <div th:unless="${product.discount > 0}">
+                <h4 class="text-danger" th:text="${'$' + product.price}">$0.00</h4>
+            </div>
 
             <form method="post" th:action="@{/cart/add}" class="mt-4">
                 <input type="hidden" name="productId" th:value="${product.id}" />
@@ -173,10 +187,15 @@
         <div id="offer-container" class="d-flex overflow-hidden gap-4">
             <div th:each="product : ${specialProducts}" class="card border-0 bg-light" style="min-width: 220px;">
                 <a th:href="@{/product/{id}(id=${product.id})}" class="text-decoration-none text-dark">
-                    <img th:if="${!#lists.isEmpty(product.images)}"
-                         th:src="${product.images[0].imgUrl}"
+
+                    <img th:if="${product.imgUrl != null}"
+                         th:src="${product.imgUrl}"
                          class="card-img-top"
                          style="height: 180px; object-fit: contain;" alt="Product Image">
+                    <img th:if="${product.imgUrl == null}"
+                         src="/image/no-image.png"
+                         class="card-img-top"
+                         style="height: 180px; object-fit: contain;" alt="No Image">
 
                     <div class="card-body px-2">
                         <h6 th:text="${product.name}" class="product-name mb-1"></h6>
@@ -184,10 +203,16 @@
                         <div>
                             <span th:text="${'$' + product.finalPrice}" class="text-success fw-bold">$0.00</span>
                             <small class="text-muted text-decoration-line-through ms-2"
+                                   th:if="${product.discount > 0}"
                                    th:text="${'$' + product.price}">$0.00</small>
                         </div>
+
                         <div class="small text-warning">
-                            ★★★★☆ <span class="text-muted">(98)</span>
+                    <span th:each="i : ${#numbers.sequence(1, 5)}"
+                          th:text="${product.intRating >= i ? '★' : '☆'}"
+                          style="font-size: 1.2em;">
+                    </span>
+                            <span class="text-muted" th:text="'(' + ${product.reviewCount} + ')'">(0)</span>
                         </div>
                     </div>
                 </a>

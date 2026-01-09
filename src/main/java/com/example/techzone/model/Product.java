@@ -32,7 +32,7 @@ public class Product {
     @CreationTimestamp
     private LocalDateTime createdDate;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch =  FetchType.EAGER)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Image> images;
     @ManyToOne

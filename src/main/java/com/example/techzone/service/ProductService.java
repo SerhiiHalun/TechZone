@@ -1,12 +1,15 @@
 package com.example.techzone.service;
 
 
+import com.example.techzone.dto.ProductCardDto;
 import com.example.techzone.model.Image;
 import com.example.techzone.model.Product;
 import com.example.techzone.repository.CategoryRepository;
 import com.example.techzone.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,14 +62,25 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
-    public List<Product> getProductsByDiscount(boolean withDiscount, Integer limit) {
-        List<Product> products = withDiscount
-                ? productRepository.findByDiscountGreaterThan(0)
-                : productRepository.findByDiscount(0);
 
+    public List<ProductCardDto> getSpecialOffers(Integer limit) {
+        List<ProductCardDto> products = productRepository.findDiscountedProductsWithStats(Pageable.unpaged());
         Collections.shuffle(products);
-        if (limit != null) {
-            return products.stream().limit(limit).toList();
+        if (limit != null && limit > 0) {
+            return products.stream()
+                    .limit(limit)
+                    .toList();
+        }
+        return products;
+    }
+
+    public List<ProductCardDto> getExploreProducts(Integer limit) {
+        List<ProductCardDto> products = productRepository.findAllProductsWithStats(Pageable.unpaged());
+        Collections.shuffle(products);
+        if (limit != null && limit > 0) {
+            return products.stream()
+                    .limit(limit)
+                    .toList();
         }
         return products;
     }
@@ -74,7 +88,6 @@ public class ProductService {
     public List<Product> getProductsByCategoryId(int categoryId) {
         return productRepository.findByCategoryId(categoryId);
     }
-
     @Transactional(readOnly = true)
     public List<Product> searchProductsByName(String name) {
         if (name == null || name.trim().isEmpty()) {
@@ -123,7 +136,6 @@ public class ProductService {
 
         return product;
     }
-
     @Transactional
     public void deleteProduct(long id) {
         if (!productRepository.existsById(id)) {

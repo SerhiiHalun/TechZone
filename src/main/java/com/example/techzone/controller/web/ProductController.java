@@ -30,11 +30,12 @@ public class ProductController {
     }
     @GetMapping("/home")
     public String showHome(Model model) {
-        model.addAttribute("specialProducts", productService.getProductsByDiscount(true, null));
-        model.addAttribute("randomProducts", productService.getProductsByDiscount(false, 10));
+        model.addAttribute("specialProducts", productService.getSpecialOffers(10));
+        model.addAttribute("randomProducts", productService.getExploreProducts(10));
         model.addAttribute("allCategories", categoryService.findAll());
         return "product/home";
     }
+
     @GetMapping
     public String listProducts(Model model) {
         return "redirect:/home";
@@ -74,7 +75,7 @@ public class ProductController {
         List<FeedbackResponseDto> feedbacks = feedbackService.getFeedbacksByProductId(id);
 
         model.addAttribute("product", product);
-        model.addAttribute("specialProducts", productService.getProductsByDiscount(true, null));
+        model.addAttribute("specialProducts", productService.getSpecialOffers(null));
         model.addAttribute("feedbacks", feedbacks);
         model.addAttribute("review", new FeedbackCreateDto());
 
