@@ -34,7 +34,7 @@ public class FeedbackService {
     }
 
     @Transactional
-    public FeedbackResponseDto addFeedback(int productId, FeedbackCreateDto dto, String userEmail) {
+    public FeedbackResponseDto addFeedback(Long productId, FeedbackCreateDto dto, String userEmail) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Product with id " + productId + " not found"));
         User user = userRepository.findByEmail(userEmail)
@@ -57,7 +57,7 @@ public class FeedbackService {
         return feedbackRepository.findAll();
     }
     @Transactional(readOnly = true)
-    public List<FeedbackResponseDto> getFeedbacksByProductId(int productId) {
+    public List<FeedbackResponseDto> getFeedbacksByProductId(long productId) {
         return feedbackRepository.findAllByProductId(productId)
                 .stream().map(FeedbackMapper::toDto).toList();
 

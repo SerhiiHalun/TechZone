@@ -54,7 +54,7 @@ public class ProductService {
     }
     @Transactional(readOnly = true)
     @Cacheable("product")
-    public Product getProductById(int id){
+    public Product getProductById(long id){
         return productRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Product with id " + id + " not found"));
     };
     @Transactional(readOnly = true)
@@ -62,7 +62,6 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
-
     public List<ProductCardDto> getSpecialOffers(Integer limit) {
         List<ProductCardDto> products = productRepository.findDiscountedProductsWithStats(Pageable.unpaged());
         Collections.shuffle(products);
@@ -73,7 +72,6 @@ public class ProductService {
         }
         return products;
     }
-
     public List<ProductCardDto> getExploreProducts(Integer limit) {
         List<ProductCardDto> products = productRepository.findAllProductsWithStats(Pageable.unpaged());
         Collections.shuffle(products);
@@ -96,7 +94,22 @@ public class ProductService {
         return productRepository.findByNameContainingIgnoreCase(name.trim());
     }
     @Transactional
-    public Product updateProductWithImages(int id,
+    public void decreaseStock(Long productId, Long quantity) {
+        Product product = getProductById(productId);
+
+        if (product.getAvailAmount() < quantity) {
+            throw new IllegalStateException("Not enough stock for product: " + product.getName());
+        }
+
+        product.setAvailAmount(product.getAvailAmount() - quantity);
+        productRepository.save(product);
+    }
+    public boolean hasEnoughStock(Long productId, int requestedAmount) {
+        Product product = getProductById(productId);
+        return product.getAvailAmount() >= requestedAmount;
+    }
+    @Transactional
+    public Product updateProductWithImages(long id,
                                            Product updatedProduct,
                                            List<MultipartFile> newFiles,
                                            int mainIndex,

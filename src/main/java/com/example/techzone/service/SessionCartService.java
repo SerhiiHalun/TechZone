@@ -76,13 +76,20 @@ public class SessionCartService {
 
         return orderRepository.save(order);
     }
-    public void addToSessionCart(int productId, int amount, HttpSession session) {
+    public void addToSessionCart(long productId, int amount, HttpSession session) {
         Product product = productService.getProductById(productId);
         List<CartItemDTO> cart = getSessionCart(session);
 
         Optional<CartItemDTO> existing = cart.stream()
                 .filter(item -> item.getProduct().getId() == productId)
                 .findFirst();
+
+        int currentAmountInCart = existing.map(CartItemDTO::getAmount).orElse(0);
+        int totalRequested = currentAmountInCart + amount;
+
+        if (!productService.hasEnoughStock(product.getId(), totalRequested)) {
+            throw new IllegalStateException("Sorry, only " + product.getAvailAmount() + " items left in stock.");
+        }
 
         if (existing.isPresent()) {
             CartItemDTO item = existing.get();
@@ -92,11 +99,18 @@ public class SessionCartService {
         }
         session.setAttribute("cart", cart);
     }
-    public void updateAmount(int productId, int delta, HttpSession session) {
+    public void updateAmount(long productId, int delta, HttpSession session) {
         List<CartItemDTO> cart = getSessionCart(session);
+        Product product = productService.getProductById(productId);
+
         cart.forEach(item -> {
             if (item.getProduct().getId() == productId) {
-                item.setAmount(Math.min(Math.max(item.getAmount() + delta, 1), 10));
+                int newAmount = item.getAmount() + delta;
+                if (delta > 0 && product.getAvailAmount() < newAmount) {
+                    return;
+                }
+                item.setAmount(Math.min(Math.max(newAmount, 1), 10));
+                item.setProduct(product);
             }
         });
         session.setAttribute("cart", cart);

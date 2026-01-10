@@ -13,7 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    Optional<Product> findById(long id);
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths = {"images"})
+    Optional<Product> findById(Long id);
     List<Product> findByNameContainingIgnoreCase(String name);
     List<Product> findByDiscount(int discount);
     List<Product> findByDiscountGreaterThan(int discount);

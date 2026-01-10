@@ -70,7 +70,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public String getProduct(@PathVariable int id, Model model) {
+    public String getProduct(@PathVariable long id, Model model) {
         Product product = productService.getProductById(id);
         List<FeedbackResponseDto> feedbacks = feedbackService.getFeedbacksByProductId(id);
 

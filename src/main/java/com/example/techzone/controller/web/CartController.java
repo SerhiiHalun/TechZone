@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
@@ -30,8 +31,13 @@ public class CartController {
     @PostMapping("/add")
     public String addToCart(@RequestParam("productId") int productId,
                             @RequestParam("amount") int amount,
-                            HttpSession session) {
-        sessionCartService.addToSessionCart(productId, amount, session);
+                            HttpSession session,
+                            RedirectAttributes redirectAttributes) {
+        try {
+            sessionCartService.addToSessionCart(productId, amount, session);
+        }catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
         return "redirect:/cart/list";
     }
 

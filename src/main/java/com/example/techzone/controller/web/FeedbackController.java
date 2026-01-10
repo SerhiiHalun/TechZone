@@ -23,7 +23,7 @@ public class FeedbackController {
 
     @PostMapping("/review")
     public String addReview(@ModelAttribute("review") @Valid FeedbackCreateDto dto,
-                            @PathVariable int productId,
+                            @PathVariable Long productId,
                             Principal principal) {
         if (principal == null) {
             return "redirect:/auth/login";

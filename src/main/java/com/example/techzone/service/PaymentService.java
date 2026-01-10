@@ -2,6 +2,7 @@ package com.example.techzone.service;
 
 
 import com.example.techzone.model.Order;
+import com.example.techzone.model.OrderItem;
 import com.example.techzone.model.Payment;
 import com.example.techzone.repository.OrderRepository;
 import com.example.techzone.repository.PaymentRepository;
@@ -24,6 +25,7 @@ public class PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final OrderRepository orderRepository;
+    private final ProductService productService;
 
     @Value("${stripe.api.key}")
     private String stripeApiKey;
@@ -66,6 +68,11 @@ public class PaymentService {
         if (payment != null) {
             payment.setStatus(success ? Payment.Status.SUCCESS : Payment.Status.FAILED);
             paymentRepository.save(payment);
+        }
+        if (success) {
+            for (OrderItem item : order.getItems()) {
+                productService.decreaseStock(item.getProduct().getId(), item.getAmount());
+            }
         }
     }
 
