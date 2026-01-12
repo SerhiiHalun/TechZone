@@ -3,17 +3,9 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.54">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-4||-9223372036854775808|c|G
-4||10|c|G
-4||10|C|G
-4||10|T|G</Grants>
-      <IntrospectionStateNumber>938</IntrospectionStateNumber>
+      <IntrospectionStateNumber>955</IntrospectionStateNumber>
       <ServerVersion>17.4</ServerVersion>
-      <StartupTime>1768062218</StartupTime>
+      <StartupTime>1768180879</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -813,7 +805,7 @@ false Zulu
 14704||10|C|G
 14704||-9223372036854775808|U|G
 14704||10|U|G</Grants>
-      <IntrospectionStateNumber>938</IntrospectionStateNumber>
+      <IntrospectionStateNumber>955</IntrospectionStateNumber>
       <ObjectId>5</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4236,11 +4228,11 @@ false Zulu
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <LastIntrospectionL1Xid>938</LastIntrospectionL1Xid>
-      <LastIntrospectionL2Xid>938</LastIntrospectionL2Xid>
-      <LastIntrospectionL3Xid>938</LastIntrospectionL3Xid>
+      <LastIntrospectionL1Xid>955</LastIntrospectionL1Xid>
+      <LastIntrospectionL2Xid>955</LastIntrospectionL2Xid>
+      <LastIntrospectionL3Xid>955</LastIntrospectionL3Xid>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2026-01-10.17:14:32</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2026-01-12.23:13:46</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>532</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4274,10 +4266,10 @@ false Zulu
     </sequence>
     <sequence id="269" parent="265" name="coupons_id_seq">
       <DetailsLevel>2</DetailsLevel>
-      <ObjectId>57365</ObjectId>
+      <ObjectId>73861</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>889</StateNumber>
+      <StateNumber>950</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
@@ -4376,8 +4368,8 @@ false Zulu
     </table>
     <table id="281" parent="265" name="coupons">
       <DetailsLevel>2</DetailsLevel>
-      <ObjectId>57366</ObjectId>
-      <StateNumber>918</StateNumber>
+      <ObjectId>73862</ObjectId>
+      <StateNumber>950</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4405,7 +4397,7 @@ false Zulu
     <table id="285" parent="265" name="orders">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>57389</ObjectId>
-      <StateNumber>919</StateNumber>
+      <StateNumber>954</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4658,75 +4650,74 @@ false Zulu
       <IdentityKind>by-default</IdentityKind>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>950</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>57365</SequenceId>
+      <SequenceId>73861</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="321" parent="281" name="discount">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>826</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <TypeId>20</TypeId>
+      <StateNumber>950</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
     </column>
-    <column id="322" parent="281" name="expiraton_date">
+    <column id="322" parent="281" name="expiration_date">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>826</StateNumber>
+      <StateNumber>950</StateNumber>
       <StoredType>date|0s</StoredType>
       <TypeId>1082</TypeId>
     </column>
-    <column id="323" parent="281" name="is_used">
+    <column id="323" parent="281" name="name">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>826</StateNumber>
-      <StoredType>boolean|0s</StoredType>
-      <TypeId>16</TypeId>
-    </column>
-    <column id="324" parent="281" name="name">
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-      <StateNumber>826</StateNumber>
+      <StateNumber>950</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="325" parent="281" name="user_id">
-      <NotNull>1</NotNull>
+    <column id="324" parent="281" name="usage_count">
+      <Position>5</Position>
+      <StateNumber>950</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="325" parent="281" name="usage_limit">
       <Position>6</Position>
-      <StateNumber>890</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <TypeId>20</TypeId>
+      <StateNumber>950</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
     </column>
-    <column id="326" parent="281" name="expiration_date">
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-      <StateNumber>918</StateNumber>
-      <StoredType>date|0s</StoredType>
-      <TypeId>1082</TypeId>
-    </column>
-    <foreign-key id="327" parent="281" name="fkhb27gggactdhu0i65fwiaxb0r">
-      <ColNames>user_id</ColNames>
-      <ObjectId>65812</ObjectId>
-      <StateNumber>903</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>57411</RefTableId>
-    </foreign-key>
-    <index id="328" parent="281" name="coupons_pkey">
+    <index id="326" parent="281" name="coupons_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>65693</ObjectId>
+      <ObjectId>73865</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>890</StateNumber>
+      <StateNumber>950</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="329" parent="281" name="coupons_pkey">
+    <index id="327" parent="281" name="uk5h861ks1w4coatjjf52xd7w7m">
+      <ColNames>name</ColNames>
+      <ObjectId>73867</ObjectId>
+      <StateNumber>952</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationNames>default</CollationNames>
+      <CollationIds>100</CollationIds>
+      <CollationParentNames>pg_catalog</CollationParentNames>
+    </index>
+    <key id="328" parent="281" name="coupons_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>65694</ObjectId>
+      <ObjectId>73866</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>889</StateNumber>
-      <UnderlyingIndexId>65693</UnderlyingIndexId>
+      <StateNumber>950</StateNumber>
+      <UnderlyingIndexId>73865</UnderlyingIndexId>
+    </key>
+    <key id="329" parent="281" name="uk5h861ks1w4coatjjf52xd7w7m">
+      <ObjectId>73868</ObjectId>
+      <StateNumber>952</StateNumber>
+      <UnderlyingIndexId>73867</UnderlyingIndexId>
     </key>
     <check id="330" parent="282" name="feedbacks_rating_check">
       <ColNames>rating</ColNames>
@@ -4970,14 +4961,20 @@ false Zulu
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="363" parent="285" name="fk32ql8ubntj5uh44ph9659tiih">
+    <column id="363" parent="285" name="coupon_code">
+      <Position>8</Position>
+      <StateNumber>954</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <foreign-key id="364" parent="285" name="fk32ql8ubntj5uh44ph9659tiih">
       <ColNames>user_id</ColNames>
       <ObjectId>65866</ObjectId>
       <StateNumber>911</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>57411</RefTableId>
     </foreign-key>
-    <index id="364" parent="285" name="orders_pkey">
+    <index id="365" parent="285" name="orders_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>65748</ObjectId>
@@ -4986,14 +4983,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="365" parent="285" name="orders_pkey">
+    <key id="366" parent="285" name="orders_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>65749</ObjectId>
       <Primary>1</Primary>
       <StateNumber>895</StateNumber>
       <UnderlyingIndexId>65748</UnderlyingIndexId>
     </key>
-    <column id="366" parent="286" name="id">
+    <column id="367" parent="286" name="id">
       <IdentityKind>by-default</IdentityKind>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -5002,49 +4999,49 @@ false Zulu
       <SequenceId>57394</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="367" parent="286" name="payment_date">
+    <column id="368" parent="286" name="payment_date">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>878</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="368" parent="286" name="payment_method">
+    <column id="369" parent="286" name="payment_method">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>830</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="369" parent="286" name="status">
+    <column id="370" parent="286" name="status">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>830</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="370" parent="286" name="amount">
+    <column id="371" parent="286" name="amount">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>899</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
-    <column id="371" parent="286" name="order_id">
+    <column id="372" parent="286" name="order_id">
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StateNumber>900</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="372" parent="286" name="fk81gagumt0r8y3rmudcgpbk42l">
+    <foreign-key id="373" parent="286" name="fk81gagumt0r8y3rmudcgpbk42l">
       <ColNames>order_id</ColNames>
       <ObjectId>65871</ObjectId>
       <StateNumber>912</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>57389</RefTableId>
     </foreign-key>
-    <index id="373" parent="286" name="payments_pkey">
+    <index id="374" parent="286" name="payments_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>57478</ObjectId>
@@ -5053,26 +5050,26 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="374" parent="286" name="uk8vo36cen604as7etdfwmyjsxt">
+    <index id="375" parent="286" name="uk8vo36cen604as7etdfwmyjsxt">
       <ColNames>order_id</ColNames>
       <ObjectId>65854</ObjectId>
       <StateNumber>908</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="375" parent="286" name="payments_pkey">
+    <key id="376" parent="286" name="payments_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>57479</ObjectId>
       <Primary>1</Primary>
       <StateNumber>877</StateNumber>
       <UnderlyingIndexId>57478</UnderlyingIndexId>
     </key>
-    <key id="376" parent="286" name="uk8vo36cen604as7etdfwmyjsxt">
+    <key id="377" parent="286" name="uk8vo36cen604as7etdfwmyjsxt">
       <ObjectId>65855</ObjectId>
       <StateNumber>908</StateNumber>
       <UnderlyingIndexId>65854</UnderlyingIndexId>
     </key>
-    <column id="377" parent="287" name="id">
+    <column id="378" parent="287" name="id">
       <IdentityKind>by-default</IdentityKind>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -5081,61 +5078,61 @@ false Zulu
       <SequenceId>57402</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="378" parent="287" name="avail_amount">
+    <column id="379" parent="287" name="avail_amount">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>831</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="379" parent="287" name="created_date">
+    <column id="380" parent="287" name="created_date">
       <Position>3</Position>
       <StateNumber>831</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="380" parent="287" name="description">
+    <column id="381" parent="287" name="description">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>831</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="381" parent="287" name="discount">
+    <column id="382" parent="287" name="discount">
       <Position>5</Position>
       <StateNumber>831</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="382" parent="287" name="name">
+    <column id="383" parent="287" name="name">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>831</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="383" parent="287" name="price">
+    <column id="384" parent="287" name="price">
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StateNumber>831</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
-    <column id="384" parent="287" name="category_id">
+    <column id="385" parent="287" name="category_id">
       <NotNull>1</NotNull>
       <Position>8</Position>
       <StateNumber>902</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="385" parent="287" name="fk1mtsbur82frn64de7balymq9s">
+    <foreign-key id="386" parent="287" name="fk1mtsbur82frn64de7balymq9s">
       <ColNames>category_id</ColNames>
       <ObjectId>65783</ObjectId>
       <StateNumber>902</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>57360</RefTableId>
     </foreign-key>
-    <index id="386" parent="287" name="product_pkey">
+    <index id="387" parent="287" name="product_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>65755</ObjectId>
@@ -5144,20 +5141,20 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="387" parent="287" name="product_pkey">
+    <key id="388" parent="287" name="product_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>65756</ObjectId>
       <Primary>1</Primary>
       <StateNumber>901</StateNumber>
       <UnderlyingIndexId>65755</UnderlyingIndexId>
     </key>
-    <check id="388" parent="288" name="users_role_check">
+    <check id="389" parent="288" name="users_role_check">
       <ColNames>role</ColNames>
       <ObjectId>57414</ObjectId>
       <Predicate>(role)::text = ANY ((ARRAY[&apos;ADMIN&apos;::character varying, &apos;SELLER&apos;::character varying, &apos;USER&apos;::character varying])::text[])</Predicate>
       <StateNumber>832</StateNumber>
     </check>
-    <column id="389" parent="288" name="id">
+    <column id="390" parent="288" name="id">
       <IdentityKind>by-default</IdentityKind>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -5166,41 +5163,41 @@ false Zulu
       <SequenceId>57410</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="390" parent="288" name="email">
+    <column id="391" parent="288" name="email">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>832</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="391" parent="288" name="first_name">
+    <column id="392" parent="288" name="first_name">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>832</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="392" parent="288" name="last_name">
+    <column id="393" parent="288" name="last_name">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>832</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="393" parent="288" name="password">
+    <column id="394" parent="288" name="password">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>832</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="394" parent="288" name="role">
+    <column id="395" parent="288" name="role">
       <Position>6</Position>
       <StateNumber>832</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="395" parent="288" name="users_pkey">
+    <index id="396" parent="288" name="users_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>65795</ObjectId>
@@ -5209,7 +5206,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="396" parent="288" name="uk6dotkott2kjsp8vw4d0m25fb7">
+    <index id="397" parent="288" name="uk6dotkott2kjsp8vw4d0m25fb7">
       <ColNames>email</ColNames>
       <ObjectId>57425</ObjectId>
       <StateNumber>903</StateNumber>
@@ -5219,19 +5216,19 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="397" parent="288" name="users_pkey">
+    <key id="398" parent="288" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>65796</ObjectId>
       <Primary>1</Primary>
       <StateNumber>903</StateNumber>
       <UnderlyingIndexId>65795</UnderlyingIndexId>
     </key>
-    <key id="398" parent="288" name="uk6dotkott2kjsp8vw4d0m25fb7">
+    <key id="399" parent="288" name="uk6dotkott2kjsp8vw4d0m25fb7">
       <ObjectId>57426</ObjectId>
       <StateNumber>835</StateNumber>
       <UnderlyingIndexId>57425</UnderlyingIndexId>
     </key>
-    <column id="399" parent="289" name="id">
+    <column id="400" parent="289" name="id">
       <IdentityKind>by-default</IdentityKind>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -5240,35 +5237,35 @@ false Zulu
       <SequenceId>57419</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="400" parent="289" name="product_id">
+    <column id="401" parent="289" name="product_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>905</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="401" parent="289" name="user_id">
+    <column id="402" parent="289" name="user_id">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>906</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="402" parent="289" name="fkqchevbfw5wq0f4uqacns02rp7">
+    <foreign-key id="403" parent="289" name="fkqchevbfw5wq0f4uqacns02rp7">
       <ColNames>product_id</ColNames>
       <ObjectId>65836</ObjectId>
       <StateNumber>905</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>57403</RefTableId>
     </foreign-key>
-    <foreign-key id="403" parent="289" name="fktrd6335blsefl2gxpb8lr0gr7">
+    <foreign-key id="404" parent="289" name="fktrd6335blsefl2gxpb8lr0gr7">
       <ColNames>user_id</ColNames>
       <ObjectId>65845</ObjectId>
       <StateNumber>906</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>57411</RefTableId>
     </foreign-key>
-    <index id="404" parent="289" name="wishlist_pkey">
+    <index id="405" parent="289" name="wishlist_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>65830</ObjectId>
@@ -5277,7 +5274,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="405" parent="289" name="wishlist_pkey">
+    <key id="406" parent="289" name="wishlist_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>65831</ObjectId>
       <Primary>1</Primary>

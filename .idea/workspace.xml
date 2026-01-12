@@ -4,27 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ecb35a9-5adb-4d40-8e98-062b6e9bf674" name="Changes" comment="fix: resolve feedback auth error and apply discounts to cart total&#10;&#10;- Fix NullPointerException in FeedbackController for unauthenticated users&#10;- Update SessionCartService to calculate total price using discounts&#10;- Fix price display logic in Explore section on home page">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4635de71-ab37-40d9-a02b-3b5c8220d0f8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4635de71-ab37-40d9-a02b-3b5c8220d0f8.xml" afterDir="false" />
+    <list default="true" id="6ecb35a9-5adb-4d40-8e98-062b6e9bf674" name="Changes" comment="Main changes:&#10;- Added logic to check product availability (availAmount) when adding to the cart.&#10;- Implemented automatic deduction of product balances after successful payment (Stripe).&#10;- In `ProductService` and `PaymentService`, identifier types are converted to Long.&#10;&#10;Bug fixes:&#10;- Fixed `LazyInitializationException` for product images in the cart.&#10;- Fixed `AuthenticationException` error with Stripe API key.&#10;- Added correct price display with discounts in the cart (`cart.html`).&#10;&#10;UI/UX:&#10;- Fixed footer positioning (Sticky Footer) on the Home, Cart, and Product View pages.&#10;- Fixed a visual bug with the background bar in the footer (z-index fix).">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/61d1a0fa-2186-4bf8-adc3-94cce38a9176.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/61d1a0fa-2186-4bf8-adc3-94cce38a9176.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/61d1a0fa-2186-4bf8-adc3-94cce38a9176/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/61d1a0fa-2186-4bf8-adc3-94cce38a9176/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/FeedbackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/FeedbackController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/controller/web/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/FeedbackRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/FeedbackRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/FeedbackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/FeedbackService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Coupon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Coupon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/CouponRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/repository/CouponRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/CouponService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/CouponService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/ProductService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/SessionCartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/techzone/service/SessionCartService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/product/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/product/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/product/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/product/create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/product/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/product/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/product/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/product/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/product/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/product/payment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/product/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/product/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/product/view-product.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/product/view-product.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +23,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="123" />
+    <option name="cachedIndexableFilesCount" value="125" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -88,44 +79,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "Spring Boot.TechZoneApplication.executor": "Run",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "A:/Project Java/E-commerce/E-commerce-SerhiiHalun/E-commerce-SerhiiHalun/TechZone/src/main/java/com/example/techzone",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "advanced.settings",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;Spring Boot.TechZoneApplication.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;A:/Project Java/E-commerce/E-commerce-SerhiiHalun/E-commerce-SerhiiHalun/TechZone/src/main/java/com/example/techzone&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "h2",
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;h2&quot;,
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="A:\Project Java\E-commerce\E-commerce-SerhiiHalun\E-commerce-SerhiiHalun\TechZone\src\main\java\com\example\techzone" />
@@ -197,7 +189,9 @@
       <workItem from="1767986177417" duration="1416000" />
       <workItem from="1767988400867" duration="2648000" />
       <workItem from="1768001455410" duration="1725000" />
-      <workItem from="1768062349280" duration="11224000" />
+      <workItem from="1768062349280" duration="12218000" />
+      <workItem from="1768249902989" duration="75000" />
+      <workItem from="1768250004458" duration="7089000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <option name="closed" value="true" />
@@ -271,7 +265,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768003040887</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Main changes:&#10;- Added logic to check product availability (availAmount) when adding to the cart.&#10;- Implemented automatic deduction of product balances after successful payment (Stripe).&#10;- In `ProductService` and `PaymentService`, identifier types are converted to Long.&#10;&#10;Bug fixes:&#10;- Fixed `LazyInitializationException` for product images in the cart.&#10;- Fixed `AuthenticationException` error with Stripe API key.&#10;- Added correct price display with discounts in the cart (`cart.html`).&#10;&#10;UI/UX:&#10;- Fixed footer positioning (Sticky Footer) on the Home, Cart, and Product View pages.&#10;- Fixed a visual bug with the background bar in the footer (z-index fix).">
+      <option name="closed" value="true" />
+      <created>1768077888781</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1768077888781</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,6 +298,8 @@
     <MESSAGE value="Add stripe pay system&#10;Rework product cart (Delete previously cart in database and create new structure on orderItem)" />
     <MESSAGE value="gitignore modify" />
     <MESSAGE value="fix: resolve feedback auth error and apply discounts to cart total&#10;&#10;- Fix NullPointerException in FeedbackController for unauthenticated users&#10;- Update SessionCartService to calculate total price using discounts&#10;- Fix price display logic in Explore section on home page" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: resolve feedback auth error and apply discounts to cart total&#10;&#10;- Fix NullPointerException in FeedbackController for unauthenticated users&#10;- Update SessionCartService to calculate total price using discounts&#10;- Fix price display logic in Explore section on home page" />
+    <MESSAGE value="Main changes:&#10;- Added logic to check product availability (availAmount) when adding to the cart.&#10;- Implemented automatic deduction of product balances after successful payment (Stripe).&#10;- In `ProductService` and `PaymentService`, identifier types are converted to Long.&#10;&#10;Bug fixes:&#10;- Fixed `LazyInitializationException` for product images in the cart.&#10;- Fixed `AuthenticationException` error with Stripe API key.&#10;- Added correct price display with discounts in the cart (`cart.html`).&#10;&#10;UI/UX:&#10;- Fixed footer positioning (Sticky Footer) on the Home, Cart, and Product View pages.&#10;- Fixed a visual bug with the background bar in the footer (z-index fix).&#10;&#10;Translated with DeepL.com (free version)" />
+    <MESSAGE value="Main changes:&#10;- Added logic to check product availability (availAmount) when adding to the cart.&#10;- Implemented automatic deduction of product balances after successful payment (Stripe).&#10;- In `ProductService` and `PaymentService`, identifier types are converted to Long.&#10;&#10;Bug fixes:&#10;- Fixed `LazyInitializationException` for product images in the cart.&#10;- Fixed `AuthenticationException` error with Stripe API key.&#10;- Added correct price display with discounts in the cart (`cart.html`).&#10;&#10;UI/UX:&#10;- Fixed footer positioning (Sticky Footer) on the Home, Cart, and Product View pages.&#10;- Fixed a visual bug with the background bar in the footer (z-index fix)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Main changes:&#10;- Added logic to check product availability (availAmount) when adding to the cart.&#10;- Implemented automatic deduction of product balances after successful payment (Stripe).&#10;- In `ProductService` and `PaymentService`, identifier types are converted to Long.&#10;&#10;Bug fixes:&#10;- Fixed `LazyInitializationException` for product images in the cart.&#10;- Fixed `AuthenticationException` error with Stripe API key.&#10;- Added correct price display with discounts in the cart (`cart.html`).&#10;&#10;UI/UX:&#10;- Fixed footer positioning (Sticky Footer) on the Home, Cart, and Product View pages.&#10;- Fixed a visual bug with the background bar in the footer (z-index fix)." />
   </component>
 </project>

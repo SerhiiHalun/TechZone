@@ -24,6 +24,8 @@ public class SessionCartService {
     private final ProductService productService;
     private final OrderRepository orderRepository;
     private final UserService userService;
+    private final CouponService couponService;
+
 
     public Page<CartItemDTO> getCartPage(HttpSession session, int page, int size) {
         List<CartItemDTO> cart = getSessionCart(session);
@@ -49,6 +51,7 @@ public class SessionCartService {
                 })
                 .sum();
     }
+
     @Transactional
     public Order createOrderFromSession(HttpSession session,String userEmail) {
         List<CartItemDTO> cartItems = getSessionCart(session);
@@ -61,7 +64,12 @@ public class SessionCartService {
         order.setUser(user);
         order.setStatus(Order.Status.PENDING);
         order.setCreationDate(LocalDateTime.now());
-        order.setTotalAmount(calculateTotal(cartItems));
+        order.setTotalAmount(calculateGrandTotal(session));
+
+        Coupon coupon = (Coupon) session.getAttribute("appliedCoupon");
+        if (coupon != null) {
+            order.setCouponCode(coupon.getName());
+        }
 
         List<OrderItem> orderItems = cartItems.stream().map(dto -> {
             OrderItem item = new OrderItem();
@@ -101,18 +109,31 @@ public class SessionCartService {
     }
     public void updateAmount(long productId, int delta, HttpSession session) {
         List<CartItemDTO> cart = getSessionCart(session);
+
         Product product = productService.getProductById(productId);
 
-        cart.forEach(item -> {
+        CartItemDTO targetItem = null;
+        for (CartItemDTO item : cart) {
             if (item.getProduct().getId() == productId) {
-                int newAmount = item.getAmount() + delta;
-                if (delta > 0 && product.getAvailAmount() < newAmount) {
+                targetItem = item;
+                break;
+            }
+        }
+        if (targetItem != null) {
+            int newAmount = targetItem.getAmount() + delta;
+            if (newAmount <= 0) {
+                cart.remove(targetItem);
+            } else {
+                if (delta > 0 && !productService.hasEnoughStock(product.getId(), newAmount)) {
                     return;
                 }
-                item.setAmount(Math.min(Math.max(newAmount, 1), 10));
-                item.setProduct(product);
+                if (newAmount > 10) {
+                    newAmount = 10;
+                }
+                    targetItem.setAmount(newAmount);
+                    targetItem.setProduct(product);
+                }
             }
-        });
         session.setAttribute("cart", cart);
     }
     public List<CartItemDTO> getSessionCart(HttpSession session) {
@@ -123,5 +144,24 @@ public class SessionCartService {
             session.setAttribute("cart", cart);
         }
         return cart;
+    }
+    public void applyCoupon(String code, HttpSession session) {
+        Coupon coupon = couponService.validateCoupon(code);
+        session.setAttribute("appliedCoupon", coupon);
+    }
+    public void removeCoupon(HttpSession session) {
+        session.removeAttribute("appliedCoupon");
+    }
+    public double calculateGrandTotal(HttpSession session) {
+        List<CartItemDTO> cart = getSessionCart(session);
+        double total = calculateTotal(cart);
+
+        Coupon coupon = (Coupon) session.getAttribute("appliedCoupon");
+        if (coupon != null) {
+            double discountAmount = total * (coupon.getDiscount() / 100.0);
+            total = total - discountAmount;
+        }
+
+        return Math.round(total * 100.0) / 100.0;
     }
 }

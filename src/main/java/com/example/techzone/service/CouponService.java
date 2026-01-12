@@ -4,6 +4,7 @@ import com.example.techzone.model.Coupon;
 import com.example.techzone.model.User;
 import com.example.techzone.repository.CouponRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,45 +18,39 @@ public class CouponService {
     public CouponService(CouponRepository couponRepository) {
         this.couponRepository = couponRepository;
     }
-
     public List<Coupon> getAllCoupons() {
         return couponRepository.findAll();
     }
-
-    public Coupon getCouponById(long id) {
-        return couponRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Coupon not found"));
-    }
-
-    public Coupon createCoupon(String name, Long discount, User user, LocalDate expirationDate, boolean isUsed) {
+    public Coupon createCoupon(String name, Integer discount, LocalDate expirationDate, Integer usageLimit) {
         Coupon coupon = new Coupon();
-        coupon.setName(name);
+        coupon.setName(name.toUpperCase());
         coupon.setDiscount(discount);
-        coupon.setUser(user);
         coupon.setExpirationDate(expirationDate);
-        coupon.setUsed(isUsed);
+        coupon.setUsageLimit(usageLimit);
+        coupon.setUsageCount(0);
         return couponRepository.save(coupon);
     }
+    public Coupon validateCoupon(String code) {
 
-    public Coupon updateCoupon(long id, String name, Long discount, User user, LocalDate expirationDate, Boolean isUsed) {
-        return couponRepository.findById(id).map(coupon -> {
-            if (name != null && !name.isBlank()) {
-                coupon.setName(name);
+        Coupon coupon = couponRepository.findByName(code.toUpperCase())
+                .orElseThrow(() -> new IllegalArgumentException("Coupon not found"));
+
+        if (coupon.getExpirationDate().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("Coupon has expired");
+        }
+
+        if (coupon.getUsageLimit() != null && coupon.getUsageLimit() > 0) {
+            if (coupon.getUsageCount() >= coupon.getUsageLimit()) {
+                throw new IllegalArgumentException("Coupon usage limit reached");
             }
-            if (discount != null) {
-                coupon.setDiscount(discount);
-            }
-            if (user != null) {
-                coupon.setUser(user);
-            }
-            if (expirationDate != null) {
-                coupon.setExpirationDate(expirationDate);
-            }
-            if (isUsed != null) {
-                coupon.setUsed(isUsed);
-            }
-            return couponRepository.save(coupon);
-        }).orElseThrow(() -> new RuntimeException("Coupon not found"));
+        }
+
+        return coupon;
+    }
+    @Transactional
+    public void increaseUsageCount(Coupon coupon) {
+        coupon.setUsageCount(coupon.getUsageCount() + 1);
+        couponRepository.save(coupon);
     }
 
     public void deleteCoupon(long id) {

@@ -25,6 +25,9 @@ public class Order {
     @Column(name = "total_amount",nullable = false)
     private Double totalAmount;
 
+    @Column(name = "coupon_code")
+    private String couponCode;
+
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;

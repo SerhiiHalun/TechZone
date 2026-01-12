@@ -125,9 +125,44 @@
         </div>
 
 
-        <div class="list-group-item d-flex justify-content-between bg-light mt-3">
-            <strong>Total:</strong>
-            <span class="fw-bold text-danger" th:text="'$' + ${totalPrice}">$0.00</span>
+        <div class="list-group-item mt-3">
+            <form th:if="${appliedCoupon == null}" th:action="@{/cart/apply-coupon}" method="post" class="d-flex gap-2">
+                <input type="text" name="code" class="form-control" placeholder="Enter promo code" required>
+                <button class="btn btn-outline-primary">Apply</button>
+            </form>
+
+            <div th:if="${appliedCoupon != null}" class="alert alert-success d-flex justify-content-between align-items-center mb-0 p-2">
+                <div>
+                    <strong th:text="${appliedCoupon.name}">CODE</strong> applied!
+                    <span class="badge bg-success ms-2" th:text="'-' + ${appliedCoupon.discount} + '%'">-10%</span>
+                </div>
+                <form th:action="@{/cart/remove-coupon}" method="post" class="m-0">
+                    <button class="btn btn-sm btn-close" aria-label="Remove coupon"></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="list-group-item bg-light mt-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <strong>Total Amount:</strong>
+
+                <div class="text-end">
+                    <div th:if="${appliedCoupon != null}" class="small text-muted text-decoration-line-through">
+                        <span th:text="'$' + ${subTotal}">$100.00</span>
+                    </div>
+
+                    <span th:class="${appliedCoupon != null} ? 'fw-bold text-success fs-4' : 'fw-bold text-danger fs-4'"
+                          th:text="'$' + ${totalPrice}">
+                        $0.00
+                    </span>
+                </div>
+            </div>
+
+            <div th:if="${appliedCoupon != null}" class="text-end mt-1">
+                <small class="text-success">
+                    You saved: <span th:text="'$' + ${#numbers.formatDecimal(subTotal - totalPrice, 1, 2)}"></span>
+                </small>
+            </div>
         </div>
 
         <div class="text-end mt-3">

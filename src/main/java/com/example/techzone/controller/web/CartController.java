@@ -2,6 +2,7 @@ package com.example.techzone.controller.web;
 
 
 import com.example.techzone.dto.CartItemDTO;
+import com.example.techzone.model.Coupon;
 import com.example.techzone.service.ProductService;
 import com.example.techzone.service.SessionCartService;
 import com.example.techzone.service.UserService;
@@ -24,12 +25,12 @@ import java.util.List;
 @RequestMapping("/cart")
 public class CartController {
 
-    private SessionCartService sessionCartService;
-    private ProductService productService;
-    private UserService userservice;
+    private final SessionCartService sessionCartService;
+    private final ProductService productService;
+    private final UserService userservice;
 
     @PostMapping("/add")
-    public String addToCart(@RequestParam("productId") int productId,
+    public String addToCart(@RequestParam("productId") long productId,
                             @RequestParam("amount") int amount,
                             HttpSession session,
                             RedirectAttributes redirectAttributes) {
@@ -50,33 +51,57 @@ public class CartController {
         int pageSize = 10;
         Page<CartItemDTO> cartPage = sessionCartService.getCartPage(session, page, pageSize);
         model.addAttribute("cartPage", cartPage);
-        model.addAttribute("totalPrice", sessionCartService.calculateTotal(sessionCartService.getSessionCart(session)));
+
+        Coupon appliedCoupon = (Coupon) session.getAttribute("appliedCoupon");
+        model.addAttribute("appliedCoupon", appliedCoupon);
+
+        double subTotal = sessionCartService.calculateTotal(sessionCartService.getSessionCart(session));
+        model.addAttribute("subTotal", subTotal);
+
+        double grandTotal = sessionCartService.calculateGrandTotal(session);
+        model.addAttribute("totalPrice", grandTotal);
 
         return "/product/cart";
 
     }
     @PostMapping("/increase")
-    public String increaseAmount(@RequestParam int productId, HttpSession session) {
+    public String increaseAmount(@RequestParam long productId, HttpSession session) {
         sessionCartService.updateAmount(productId, 1, session);
         return "redirect:/cart/list";
     }
     @PostMapping("/decrease")
-    public String decreaseAmount(@RequestParam int productId, HttpSession session) {
+    public String decreaseAmount(@RequestParam long productId, HttpSession session) {
         sessionCartService.updateAmount(productId, -1, session);
         return "redirect:/cart/list";
     }
     @PostMapping("/payment")
     public String proceedToPayment(HttpSession session, Model model) {
         List<CartItemDTO> cart = sessionCartService.getSessionCart(session);
-        double total = sessionCartService.calculateTotal(cart);
 
         if (cart.isEmpty()) {
             model.addAttribute("message", "Your cart is empty!");
             return "redirect:/cart/list";
         }
-
-        model.addAttribute("totalPrice", total);
         return "redirect:/payment/checkout";
     }
-
+    @PostMapping("/apply-coupon")
+    public String applyCoupon(@RequestParam("code") String code,
+                              HttpSession session,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            sessionCartService.applyCoupon(code, session);
+            redirectAttributes.addFlashAttribute("message", "Coupon " + code + " applied successfully!");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Something went wrong.");
+        }
+        return "redirect:/cart/list";
+    }
+    @PostMapping("/remove-coupon")
+    public String removeCoupon(HttpSession session, RedirectAttributes redirectAttributes) {
+        sessionCartService.removeCoupon(session);
+        redirectAttributes.addFlashAttribute("message", "Coupon removed.");
+        return "redirect:/cart/list";
+    }
 }

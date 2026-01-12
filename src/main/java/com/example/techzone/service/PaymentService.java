@@ -1,6 +1,7 @@
 package com.example.techzone.service;
 
 
+import com.example.techzone.model.Coupon;
 import com.example.techzone.model.Order;
 import com.example.techzone.model.OrderItem;
 import com.example.techzone.model.Payment;
@@ -26,6 +27,7 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final OrderRepository orderRepository;
     private final ProductService productService;
+    private final CouponService couponService;
 
     @Value("${stripe.api.key}")
     private String stripeApiKey;
@@ -72,6 +74,15 @@ public class PaymentService {
         if (success) {
             for (OrderItem item : order.getItems()) {
                 productService.decreaseStock(item.getProduct().getId(), item.getAmount());
+            }
+            if (order.getCouponCode() != null && !order.getCouponCode().isEmpty()) {
+
+                try {
+                    Coupon coupon = couponService.validateCoupon(order.getCouponCode());
+                    couponService.increaseUsageCount(coupon);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Coupon processing error: " + e.getMessage());
+                }
             }
         }
     }
