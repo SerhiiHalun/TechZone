@@ -43,7 +43,7 @@ public class PaymentController {
             model.addAttribute("totalAmount", order.getTotalAmount());
             model.addAttribute("stripePublicKey", stripePublicKey);
 
-            return "/product/payment";
+            return "product/payment";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", e.getMessage());

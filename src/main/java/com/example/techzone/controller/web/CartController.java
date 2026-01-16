@@ -61,7 +61,7 @@ public class CartController {
         double grandTotal = sessionCartService.calculateGrandTotal(session);
         model.addAttribute("totalPrice", grandTotal);
 
-        return "/product/cart";
+        return "product/cart";
 
     }
     @PostMapping("/increase")
@@ -80,7 +80,7 @@ public class CartController {
 
         if (cart.isEmpty()) {
             model.addAttribute("message", "Your cart is empty!");
-            return "redirect:/cart/list";
+            return "redirect:cart/list";
         }
         return "redirect:/payment/checkout";
     }

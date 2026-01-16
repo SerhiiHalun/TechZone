@@ -26,7 +26,7 @@ public class FeedbackController {
                             @PathVariable Long productId,
                             Principal principal) {
         if (principal == null) {
-            return "redirect:/auth/login";
+            return "redirect:auth/login";
         }
         feedbackService.addFeedback(productId, dto, principal.getName());
         return "redirect:/product/" + productId;

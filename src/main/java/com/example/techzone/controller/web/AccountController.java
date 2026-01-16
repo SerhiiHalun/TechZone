@@ -32,7 +32,7 @@ public class AccountController {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         model.addAttribute("user", user);
-        return "/auth/account";
+        return "auth/account";
     }
 }
 

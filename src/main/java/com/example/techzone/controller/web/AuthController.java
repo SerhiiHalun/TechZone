@@ -36,13 +36,13 @@ public class AuthController {
     @GetMapping("/login")
     public String showLoginForm() {
 
-        return "/auth/login";
+        return "auth/login";
     }
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
-        return "/auth/register";
+        return "auth/register";
     }
 
     @PostMapping("/register")

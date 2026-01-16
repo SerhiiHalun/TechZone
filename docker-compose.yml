@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+
+  app:
+    build: .
+    container_name: techzone-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/techzone_db
+
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=pass
+
+      - SPRING_PROFILES_ACTIVE=prod
+
+  db:
+    image: postgres:15
+    container_name: techzone-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: techzone_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+# Объявляем хранилище для базы данных
+volumes:
+  db_data:
